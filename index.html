@@ -20,8 +20,190 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600;700&family=Geist:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Critical Preloader Styles (Zero layout shift, instant first paint) -->
+    <style>
+      #portal-preloader {
+        position: fixed;
+        inset: 0;
+        z-index: 999999;
+        background: #09090b;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        transition: opacity 0.85s cubic-bezier(0.7, 0, 0.25, 1);
+        overflow: hidden;
+        user-select: none;
+      }
+
+      #portal-preloader.is-exiting {
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .preloader-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        animation: preloaderPulse 2s ease-in-out infinite;
+        transform-origin: center center;
+        will-change: transform, opacity, filter;
+      }
+
+      #portal-preloader.is-exiting .preloader-content {
+        animation: netflixExpandFade 0.85s cubic-bezier(0.7, 0, 0.25, 1) forwards;
+      }
+
+      .preloader-squircle {
+        width: 120px;
+        height: 120px;
+        border-radius: 28px;
+        background: rgba(15, 23, 42, 0.85);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(16, 185, 129, 0.35);
+        box-shadow: 0 0 35px rgba(16, 185, 129, 0.2), inset 0 0 15px rgba(16, 185, 129, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 24px;
+      }
+
+      .preloader-icon {
+        width: 64px;
+        height: 64px;
+        object-fit: contain;
+        display: block;
+      }
+
+      .preloader-title {
+        font-family: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 24px;
+        font-weight: 700;
+        letter-spacing: 0.2em;
+        color: #f4f4f5;
+        margin: 0 0 8px 0;
+        text-align: center;
+        text-indent: 0.2em;
+      }
+
+      .preloader-subtitle {
+        font-family: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 10px;
+        letter-spacing: 0.28em;
+        color: #10b981;
+        font-weight: 600;
+        text-transform: uppercase;
+        margin: 0;
+        text-align: center;
+        text-indent: 0.28em;
+      }
+
+      @keyframes preloaderPulse {
+        0%, 100% {
+          transform: scale(1);
+          filter: drop-shadow(0 0 0px transparent);
+        }
+        50% {
+          transform: scale(1.05);
+          filter: drop-shadow(0 0 28px rgba(16, 185, 129, 0.4));
+        }
+      }
+
+      @keyframes netflixExpandFade {
+        0% {
+          transform: scale(1);
+          opacity: 1;
+          filter: blur(0px);
+        }
+        25% {
+          transform: scale(1.35);
+          opacity: 0.95;
+        }
+        50% {
+          opacity: 0.65;
+          filter: blur(4px);
+        }
+        100% {
+          transform: scale(14);
+          opacity: 0;
+          filter: blur(16px);
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .preloader-content {
+          animation: none;
+        }
+        #portal-preloader {
+          transition: opacity 0.4s ease-out;
+        }
+        #portal-preloader.is-exiting .preloader-content {
+          animation: none;
+          opacity: 0;
+        }
+      }
+    </style>
   </head>
   <body class="bg-[#09090b] text-zinc-100 antialiased selection:bg-emerald-500/20 selection:text-emerald-300">
+    <!-- Cinematic Inline Preloader -->
+    <div id="portal-preloader" role="status" aria-label="Loading ZeroEgress Portal">
+      <div class="preloader-content">
+        <div class="preloader-squircle">
+          <img src="/favicon.svg" alt="ZeroEgress Emblem" class="preloader-icon" width="64" height="64" />
+        </div>
+        <h1 class="preloader-title">ZEROEGRESS</h1>
+        <p class="preloader-subtitle">DISTRIBUTION &amp; DESKTOP SUITE</p>
+      </div>
+    </div>
+
+    <script>
+      (function () {
+        var preloader = document.getElementById('portal-preloader');
+        if (!preloader) return;
+
+        var startTime = performance.now();
+        var minDuration = 650; // Anti-Flicker Threshold ms
+        var maxSafetyTimeout = 3200; // Safety Watchdog ms
+        var isDismissed = false;
+
+        function dismissPreloader() {
+          if (isDismissed) return;
+          isDismissed = true;
+
+          var elapsed = performance.now() - startTime;
+          var remainingDelay = Math.max(0, minDuration - elapsed);
+
+          setTimeout(function () {
+            preloader.classList.add('is-exiting');
+
+            // Teardown: Wait 880ms post-trigger, then preloader.remove() to fully detach from the DOM
+            setTimeout(function () {
+              if (preloader && preloader.parentNode) {
+                preloader.parentNode.removeChild(preloader);
+              }
+            }, 880);
+          }, remainingDelay);
+        }
+
+        if (document.readyState === 'complete') {
+          dismissPreloader();
+        } else {
+          window.addEventListener('load', dismissPreloader);
+          document.addEventListener('DOMContentLoaded', function () {
+            if (performance.now() - startTime >= minDuration) {
+              dismissPreloader();
+            }
+          });
+        }
+
+        // Safety Watchdog
+        setTimeout(dismissPreloader, maxSafetyTimeout);
+      })();
+    </script>
+
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
