@@ -5,7 +5,8 @@ import {
   HelpCircle, 
   Globe, 
   Monitor, 
-  Download
+  Download,
+  ExternalLink
 } from 'lucide-react'
 import { COMPARISON_DATA, WEB_APP_URL } from '../data/releases'
 
@@ -63,12 +64,12 @@ export const ComparisonMatrix: React.FC = () => {
           </div>
 
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white">
-            Free Web PWA vs. Native Desktop
+            100% Free Web App vs. Native Desktop
           </h2>
 
           <p className="text-base sm:text-lg text-zinc-400 leading-relaxed">
-            Both options are strictly client-side with zero telemetry. 
-            Native unlocks unlimited file sizes, bare-metal hardware acceleration, and OS workflow hooks.
+            The browser web app is <span className="text-emerald-400 font-medium">100% free with zero paywalls or accounts</span>. 
+            The ₹99 Native Pro license is specifically for standalone offline binaries, direct OS context-menu shortcuts, and multi-gigabyte processing without browser memory caps.
           </p>
 
           {/* Filter Pills */}
@@ -99,17 +100,17 @@ export const ComparisonMatrix: React.FC = () => {
                   <th className="py-4 px-6 w-3/12 font-semibold text-zinc-300">
                     <div className="flex items-center gap-2">
                       <Globe className="w-4 h-4 text-sky-400" />
-                      <span>Free Web App (PWA)</span>
+                      <span>Free Web App (₹0 Forever)</span>
                     </div>
                   </th>
                   <th className="py-4 px-6 w-4/12 font-semibold text-white bg-zinc-900/80 border-l border-zinc-800/80">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2 text-emerald-300">
                         <Monitor className="w-4 h-4 text-emerald-400" />
-                        <span>Native Desktop / Pro</span>
+                        <span>Native Desktop Pro (₹99)</span>
                       </div>
                       <span className="px-2 py-0.5 rounded text-[10px] bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
-                        Recommended
+                        Lifetime
                       </span>
                     </div>
                   </th>
@@ -159,23 +160,24 @@ export const ComparisonMatrix: React.FC = () => {
           {/* Table Footer Summary CTA */}
           <div className="p-6 bg-zinc-950/80 border-t border-zinc-800 flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="text-xs text-zinc-400 font-mono text-center sm:text-left">
-              <span className="text-emerald-400 font-semibold">Audited Principle:</span> In both environments, your private files never touch a remote server.
+              <span className="text-emerald-400 font-semibold">Zero Server Uploads:</span> All tools on the Web App are 100% free with zero paywalls.
             </div>
             <div className="flex items-center gap-3">
               <a
                 href={WEB_APP_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-4 py-2 rounded-lg text-xs font-mono font-medium text-zinc-300 hover:text-white border border-zinc-700 bg-zinc-900 hover:bg-zinc-800 transition-colors"
+                className="px-4 py-2 rounded-lg text-xs font-mono font-medium text-zinc-300 hover:text-white border border-zinc-700 bg-zinc-900 hover:bg-zinc-800 transition-colors flex items-center gap-1.5"
               >
-                Launch Web PWA
+                <span>Launch Free Web App</span>
+                <ExternalLink className="w-3 h-3 text-zinc-400" />
               </a>
               <a
-                href="#downloads"
+                href="#pricing"
                 className="px-4 py-2 rounded-lg text-xs font-mono font-medium text-zinc-950 bg-emerald-400 hover:bg-emerald-300 transition-colors flex items-center gap-1.5"
               >
                 <Download className="w-3.5 h-3.5" />
-                <span>Download Native</span>
+                <span>Get Desktop License (₹99)</span>
               </a>
             </div>
           </div>

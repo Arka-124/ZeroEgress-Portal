@@ -3,6 +3,8 @@ import type { BinaryRelease, FeaturePillar, ComparisonItem, PricingPlan } from '
 export const APP_VERSION = 'v2.0.0'
 export const RELEASE_DATE = 'October 2026'
 export const WEB_APP_URL = 'https://zero-egress.vercel.app/'
+export const GITHUB_REPO_URL = 'https://github.com/Arka-124/ZeroEgress'
+export const PORTAL_REPO_URL = 'https://github.com/Arka-124/ZeroEgress-Portal'
 
 export const BINARY_RELEASES: BinaryRelease[] = [
   {
@@ -104,11 +106,11 @@ export const VALUE_PILLARS: FeaturePillar[] = [
     badge: 'Verifiable Privacy',
     title: 'Zero-Byte Egress',
     tagline: 'No telemetry. No cloud logging. True air-gapped security.',
-    description: 'ZeroEgress binds strictly to loopback or operates fully socketless. Run Wireshark or Little Snitch: not a single network packet ever leaves your machine while converting sensitive NDAs, medical records, or proprietary source datasets.',
+    description: 'ZeroEgress operates fully local with zero telemetry. Run Wireshark or network monitors: not a single network packet ever leaves your machine while converting sensitive NDAs, medical records, or proprietary media datasets.',
     stats: [
       { label: 'Outbound Packets', value: '0 bytes' },
-      { label: 'Cloud Servers Used', value: '0' },
-      { label: 'Privacy Audit', value: 'Verified' }
+      { label: 'Cloud Uploads', value: '0' },
+      { label: 'Air-Gap State', value: 'Verified' }
     ],
     codeSnippet: '$ zeroegress doctor --network-audit\n[✓] Bound sockets: 0\n[✓] External DNS queries: 0\n[✓] Air-gap state: VERIFIED STRICT OFFLINE',
     icon: 'ShieldCheck'
@@ -118,7 +120,7 @@ export const VALUE_PILLARS: FeaturePillar[] = [
     badge: 'Scale Without Bounds',
     title: 'Bypass Browser Limits',
     tagline: 'Process multi-gigabyte 4K media and massive PDFs without crashes.',
-    description: 'Web browsers suffer from strict 2GB WebAssembly heap limits and memory-hungry garbage collectors that crash tabs on big files. ZeroEgress native pipelines stream directly off NVMe storage in buffered chunks up to multi-terabyte files with flat 45MB RAM overhead.',
+    description: 'Web browsers suffer from strict ~2GB WebAssembly heap limits and memory-hungry garbage collectors that crash tabs on big files. The Native Desktop app streams directly off NVMe storage in buffered chunks up to multi-terabyte files with tiny RAM overhead.',
     stats: [
       { label: 'Max File Size', value: 'Unlimited' },
       { label: 'RAM Footprint', value: '< 65 MB' },
@@ -132,7 +134,7 @@ export const VALUE_PILLARS: FeaturePillar[] = [
     badge: 'Native Workflow',
     title: 'OS Shell Integration',
     tagline: 'Right-click any file in Explorer or Finder to convert instantly.',
-    description: 'No browser tabs to open, no dragging files into slow web upload zones. Deep operating system context menu hooks let you highlight 50 documents or videos, right-click, select "ZeroEgress > Convert to PDF / AVIF / ProRes", and watch them finish in seconds.',
+    description: 'No browser tabs to open, no dragging files into web dropzones. Deep operating system context menu hooks let you highlight 50 documents or videos, right-click, select "ZeroEgress > Convert to PDF / AVIF / ProRes", and watch them finish in seconds.',
     stats: [
       { label: 'Clicks to Convert', value: '1 Click' },
       { label: 'Windows Explorer', value: 'Native Win11' },
@@ -146,7 +148,7 @@ export const VALUE_PILLARS: FeaturePillar[] = [
     badge: 'Native Silicon Speed',
     title: 'Hardware Acceleration',
     tagline: 'Direct access to NVENC, Apple VideoToolbox, and SIMD threads.',
-    description: 'Unlike sandboxed web workers that throttle on CPU software rasterizers, ZeroEgress taps directly into bare metal hardware: NVIDIA NVENC/NVDEC, Apple Silicon Media Engines, Intel QuickSync, and AVX-512 vector extensions for up to 18x faster throughput.',
+    description: 'Unlike sandboxed web workers that throttle on CPU software rasterizers, ZeroEgress native taps directly into bare metal hardware: NVIDIA NVENC/NVDEC, Apple Silicon Media Engines, Intel QuickSync, and AVX-512 vector extensions for up to 18x faster throughput.',
     stats: [
       { label: 'Speed Multiplier', value: '18x faster' },
       { label: 'GPU Acceleration', value: 'Metal / CUDA / Vulkan' },
@@ -160,16 +162,23 @@ export const VALUE_PILLARS: FeaturePillar[] = [
 export const COMPARISON_DATA: ComparisonItem[] = [
   {
     category: 'Privacy & Security',
-    feature: '100% Offline / Air-Gapped Execution',
-    webPwa: 'Requires initial web page load',
-    nativePro: 'Standalone binary, zero network socket requirement',
-    tooltip: 'Native runs even on computers with disconnected ethernet and disabled Wi-Fi.'
+    feature: 'Web Utility Suite Access (Images, PDFs, Media, Hashes)',
+    webPwa: '100% Free Forever (Zero Paywalls, Zero Logins)',
+    nativePro: '100% Free & Bundled in Native App',
+    tooltip: 'Every web tool is completely free on https://zero-egress.vercel.app/ without accounts.'
   },
   {
     category: 'Privacy & Security',
-    feature: 'Zero Outbound Telemetry or Analytics',
+    feature: 'Zero Outbound Telemetry or Cloud Logging',
     webPwa: 'Zero telemetry (verified client-side)',
     nativePro: 'Strict zero byte egress (auditable with Wireshark)',
+  },
+  {
+    category: 'Privacy & Security',
+    feature: 'Standalone Offline / Air-Gapped Execution',
+    webPwa: 'Requires initial web page load (cached via PWA)',
+    nativePro: 'Standalone binary, zero network socket requirement',
+    tooltip: 'Native runs on completely disconnected workstations without an internet connection.'
   },
   {
     category: 'Performance & Scale',
@@ -180,14 +189,14 @@ export const COMPARISON_DATA: ComparisonItem[] = [
   },
   {
     category: 'Performance & Scale',
-    feature: 'Hardware Video & Image Encoding',
-    webPwa: 'Software WebAssembly codec',
+    feature: 'Hardware Video & Media Acceleration',
+    webPwa: 'In-browser WebAssembly worker',
     nativePro: 'NVENC, Apple VideoToolbox, Intel QSV, VA-API',
   },
   {
     category: 'Performance & Scale',
     feature: 'Multi-threaded SIMD Vector Parallelism',
-    webPwa: 'Browser Web Workers (Throttled)',
+    webPwa: 'Browser Web Workers',
     nativePro: 'All CPU Cores + AVX-512 / ARM NEON native instructions',
   },
   {
@@ -195,6 +204,7 @@ export const COMPARISON_DATA: ComparisonItem[] = [
     feature: 'OS Context Menu (Right-Click Conversion)',
     webPwa: false,
     nativePro: 'Native Windows 11 Shell, macOS Finder, Linux Nautilus',
+    tooltip: 'Right click any file in Explorer or Finder to convert without opening a browser.'
   },
   {
     category: 'OS Integration',
@@ -205,61 +215,54 @@ export const COMPARISON_DATA: ComparisonItem[] = [
   },
   {
     category: 'OS Integration',
-    feature: 'Headless CLI & Scripting API',
+    feature: 'Headless CLI & Scripting Tool',
     webPwa: false,
-    nativePro: 'Included zeroegress CLI for bash, zsh, and PowerShell scripts',
-  },
-  {
-    category: 'Performance & Scale',
-    feature: 'Air-Gapped Neural OCR & PDF Flattening',
-    webPwa: 'Basic Tesseract.js (Slow)',
-    nativePro: 'High-speed SIMD-accelerated neural OCR engine',
+    nativePro: 'Included zeroegress CLI for bash, zsh, and PowerShell',
   },
   {
     category: 'Licensing & Updates',
     feature: 'Pricing Model',
-    webPwa: '$0 Free',
-    nativePro: '$29 One-Time Perpetual License (No Subscriptions)',
+    webPwa: '₹0 Free Forever (Zero Subscriptions)',
+    nativePro: '₹99 One-Time (Lifetime Native License)',
   }
 ]
 
 export const PRICING_PLANS: PricingPlan[] = [
   {
-    name: 'Community Tier',
-    tagline: 'Essential air-gapped conversion for casual files and quick edits.',
-    price: '$0',
+    name: 'Free Web App',
+    tagline: '100% Free Forever. Zero paywalls, zero accounts, zero limits.',
+    price: '₹0',
     period: 'Free forever',
-    description: 'Perfect for privacy-conscious developers and users who need fast, zero-upload file operations in browser or basic desktop.',
+    description: 'Every utility (Image Converter, PDF Merge/Split/Compress, Metadata Stripper, Media Studio, Hashes & Data, Spreadsheets, Archives) is completely accessible directly in your browser with zero restrictions.',
     features: [
-      'Zero-egress client-side Web PWA',
-      'Basic native desktop binary (unregistered)',
-      'Images, Markdown, CSV, JSON format conversions',
-      'Single file operations up to 2 GB',
-      '100% telemetry-free client code',
-      'Community GitHub discussions & issues'
+      '100% Free forever with ZERO paywalls',
+      'Zero accounts, logins, or tracking required',
+      'Full utility suite: Images, PDFs, Media, Hashes, Spreadsheets',
+      'Verifiable client-side processing (zero cloud uploads)',
+      'Instant drag-and-drop in any modern browser',
+      'Works offline once cached as PWA'
     ],
-    ctaText: 'Use Community Free',
-    badge: 'Open Access'
+    ctaText: 'Use Web App Free',
+    badge: '100% Free Forever'
   },
   {
-    name: 'Pro Perpetual',
-    tagline: 'Uncapped hardware power, automated workflows, and OS integration.',
-    price: '$29',
-    period: 'One-time payment, lifetime license',
+    name: 'Native Pro License',
+    tagline: 'Offline native binaries for Windows, macOS, Linux, and Android.',
+    price: '₹99',
+    period: 'One-Time Payment / Lifetime Access',
     isPopular: true,
-    description: 'For engineers, security researchers, media editors, and enterprises who demand multi-gigabyte batch scale and zero cloud risk.',
+    description: 'The Pro License is strictly for running the standalone Native Desktop and Android applications with OS right-click integration, uncapped file sizes, and background automation.',
     features: [
-      'Everything in Community Tier',
-      'Unlimited file sizes (multi-GB 4K videos, massive PDFs)',
-      'Hardware GPU acceleration (NVENC, Apple VideoToolbox, QSV)',
-      'Native OS shell right-click integration (Explorer & Finder)',
-      'Autonomous background Watch Folder automation',
-      'High-speed air-gapped neural OCR & PDF flattening',
-      'Headless CLI tool (`zeroegress` command-line utility)',
-      'Multi-seat personal use (up to 3 personal machines)',
-      'Lifetime updates for version 2.x'
+      'Direct access to download Windows (.exe/.msi), macOS (.dmg), Linux (.AppImage), and Android (.apk) binaries',
+      'Full OS context-menu shortcuts (Right-click -> "Convert with ZeroEgress")',
+      'Bypass browser limits (process multi-GB files without browser memory caps)',
+      'Direct GPU hardware acceleration (NVENC, Apple VideoToolbox, AVX-512)',
+      'Autonomous background Watch Folder daemon',
+      'Headless CLI utility (`zeroegress` command-line executable)',
+      'Offline Ed25519 cryptographic license key sent instantly upon checkout',
+      'No subscriptions. Pay once, use offline forever'
     ],
-    ctaText: 'Purchase Pro License',
-    badge: 'Best Value'
+    ctaText: 'Get Desktop License for ₹99',
+    badge: 'Lifetime License'
   }
 ]

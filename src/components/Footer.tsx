@@ -1,9 +1,10 @@
 import React from 'react'
 import { 
-  ShieldCheck, 
   ExternalLink 
 } from 'lucide-react'
-import { APP_VERSION, WEB_APP_URL } from '../data/releases'
+import { BrandLogo } from './BrandLogo'
+import { useAppVersion } from '../hooks/useAppVersion'
+import { WEB_APP_URL, GITHUB_REPO_URL, PORTAL_REPO_URL } from '../data/releases'
 
 interface FooterProps {
   onOpenDocs: () => void
@@ -19,6 +20,8 @@ const GitHubIcon = () => (
 )
 
 export const Footer: React.FC<FooterProps> = ({ onOpenDocs, onOpenLicenseModal }) => {
+  const { version } = useAppVersion('2.0.0')
+
   return (
     <footer className="border-t border-zinc-800 bg-[#09090b] text-zinc-400 py-16 text-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -29,17 +32,17 @@ export const Footer: React.FC<FooterProps> = ({ onOpenDocs, onOpenLicenseModal }
           {/* Brand Col */}
           <div className="md:col-span-2 space-y-4">
             <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-lg bg-zinc-900 border border-zinc-700/80 flex items-center justify-center text-emerald-400">
-                <ShieldCheck className="w-5 h-5" />
+              <div className="w-8 h-8 rounded-xl bg-zinc-900 border border-zinc-700/80 flex items-center justify-center p-1.5 shadow-inner">
+                <BrandLogo size={20} />
               </div>
               <span className="text-base font-bold text-white tracking-tight">ZeroEgress</span>
               <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-zinc-800 text-zinc-300 border border-zinc-700">
-                {APP_VERSION}
+                {version}
               </span>
             </div>
 
             <p className="text-xs text-zinc-400 max-w-sm leading-relaxed">
-              Utilitarian, air-gapped file utilities designed for engineering teams, security professionals, and creators. Convert, merge, and sanitize multi-gigabyte media without remote cloud dependency.
+              Utilitarian, air-gapped file utilities. Free unpaywalled Web App running entirely in your browser, and high-performance ₹99 Native Desktop binaries for heavy OS batch workloads.
             </p>
 
             {/* Live Air-Gap Status Indicator */}
@@ -67,14 +70,14 @@ export const Footer: React.FC<FooterProps> = ({ onOpenDocs, onOpenLicenseModal }
                 <a href="#compare" className="hover:text-white transition-colors">Web vs. Desktop Matrix</a>
               </li>
               <li>
-                <a href="#pricing" className="hover:text-white transition-colors">Pricing & Perpetual License</a>
+                <a href="#pricing" className="hover:text-white transition-colors">Pricing (₹99 License)</a>
               </li>
               <li>
                 <a href="#downloads" className="hover:text-white transition-colors">Release Binaries</a>
               </li>
               <li>
                 <a href={WEB_APP_URL} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors inline-flex items-center gap-1">
-                  <span>Open Web App</span>
+                  <span>Open Free Web App</span>
                   <ExternalLink className="w-3 h-3" />
                 </a>
               </li>
@@ -108,7 +111,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenDocs, onOpenLicenseModal }
           {/* Resources & Security */}
           <div className="space-y-3">
             <div className="text-xs font-mono font-semibold text-zinc-200 uppercase tracking-wider">
-              Security & Docs
+              Source & Docs
             </div>
             <ul className="space-y-2 text-xs">
               <li>
@@ -123,23 +126,29 @@ export const Footer: React.FC<FooterProps> = ({ onOpenDocs, onOpenLicenseModal }
               </li>
               <li>
                 <button onClick={onOpenLicenseModal} className="hover:text-white transition-colors text-left cursor-pointer">
-                  License Key Activation
+                  Desktop License Activation (₹99)
                 </button>
               </li>
               <li>
                 <a 
-                  href="https://github.com/Arka-124/ZeroEgress-Portal" 
+                  href={GITHUB_REPO_URL} 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="hover:text-white transition-colors inline-flex items-center gap-1.5"
                 >
                   <GitHubIcon />
-                  <span>GitHub Repository</span>
+                  <span>Web App Source (ZeroEgress)</span>
                 </a>
               </li>
               <li>
-                <a href="#checksums" className="hover:text-white transition-colors">
-                  PGP Release Signatures
+                <a 
+                  href={PORTAL_REPO_URL} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="hover:text-white transition-colors inline-flex items-center gap-1.5"
+                >
+                  <GitHubIcon />
+                  <span>Portal Source (ZeroEgress-Portal)</span>
                 </a>
               </li>
             </ul>
@@ -157,9 +166,9 @@ export const Footer: React.FC<FooterProps> = ({ onOpenDocs, onOpenLicenseModal }
           <div className="flex items-center gap-6">
             <a href="#" className="hover:text-zinc-300 transition-colors">Privacy Policy</a>
             <span>•</span>
-            <a href="#" className="hover:text-zinc-300 transition-colors">Terms of License (Apache 2.0 / Commercial)</a>
+            <a href="#" className="hover:text-zinc-300 transition-colors">Terms of License</a>
             <span>•</span>
-            <a href="https://github.com/Arka-124/ZeroEgress-Portal" target="_blank" rel="noopener noreferrer" className="hover:text-zinc-300 transition-colors flex items-center gap-1">
+            <a href={GITHUB_REPO_URL} target="_blank" rel="noopener noreferrer" className="hover:text-zinc-300 transition-colors flex items-center gap-1">
               <GitHubIcon />
               <span>GitHub</span>
             </a>

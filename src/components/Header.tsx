@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { 
-  ShieldCheck, 
   ExternalLink, 
   Menu, 
   X, 
@@ -9,7 +8,9 @@ import {
   BookOpen,
   KeyRound
 } from 'lucide-react'
-import { APP_VERSION, WEB_APP_URL } from '../data/releases'
+import { BrandLogo } from './BrandLogo'
+import { useAppVersion } from '../hooks/useAppVersion'
+import { WEB_APP_URL } from '../data/releases'
 
 interface HeaderProps {
   onOpenDocs: () => void
@@ -19,6 +20,7 @@ interface HeaderProps {
 export const Header: React.FC<HeaderProps> = ({ onOpenDocs, onOpenLicenseModal }) => {
   const [isScrolled, setIsScrolled] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const { version } = useAppVersion('2.0.0')
 
   useEffect(() => {
     const handleScroll = () => {
@@ -48,8 +50,8 @@ export const Header: React.FC<HeaderProps> = ({ onOpenDocs, onOpenLicenseModal }
           {/* Brand Logo & Version Pill */}
           <div className="flex items-center gap-3">
             <a href="#" className="flex items-center gap-2.5 group">
-              <div className="w-9 h-9 rounded-lg bg-zinc-900 border border-zinc-700/80 flex items-center justify-center text-zinc-100 group-hover:border-zinc-500 transition-colors shadow-inner">
-                <ShieldCheck className="w-5 h-5 text-emerald-400 group-hover:scale-110 transition-transform duration-200" />
+              <div className="w-9 h-9 rounded-xl bg-zinc-900 border border-zinc-700/80 flex items-center justify-center p-1.5 group-hover:border-zinc-500 transition-colors shadow-inner">
+                <BrandLogo size={22} className="group-hover:scale-105 transition-transform duration-200" />
               </div>
               <div className="flex flex-col">
                 <span className="text-base font-semibold tracking-tight text-white flex items-center gap-1.5">
@@ -61,7 +63,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenDocs, onOpenLicenseModal }
               </div>
             </a>
 
-            {/* v2.0.0 Live Pill */}
+            {/* Live Synchronized Version Pill */}
             <a 
               href="#downloads"
               className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-mono font-medium bg-zinc-900/90 text-zinc-300 border border-zinc-800 hover:border-zinc-700 hover:text-white transition-all"
@@ -70,7 +72,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenDocs, onOpenLicenseModal }
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
               </span>
-              <span>{APP_VERSION} Live</span>
+              <span>{version} Live</span>
             </a>
           </div>
 
@@ -143,7 +145,10 @@ export const Header: React.FC<HeaderProps> = ({ onOpenDocs, onOpenLicenseModal }
       {mobileMenuOpen && (
         <div className="md:hidden border-b border-zinc-800 bg-[#09090b]/95 backdrop-blur-xl px-4 pt-3 pb-5 space-y-2 animate-in slide-in-from-top-2">
           <div className="flex items-center justify-between pb-2 mb-2 border-b border-zinc-800/60">
-            <span className="text-xs font-mono text-zinc-400">ZeroEgress {APP_VERSION}</span>
+            <span className="text-xs font-mono text-zinc-400 flex items-center gap-1.5">
+              <BrandLogo size={16} />
+              ZeroEgress {version}
+            </span>
             <span className="inline-flex items-center gap-1 text-[11px] font-mono text-emerald-400">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
               Air-Gapped Core Active
@@ -180,7 +185,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenDocs, onOpenLicenseModal }
             className="w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-zinc-300 hover:text-white hover:bg-zinc-800/60 transition-colors flex items-center gap-2 cursor-pointer"
           >
             <KeyRound className="w-4 h-4 text-zinc-400" />
-            Activate License Key
+            Activate Desktop License (₹99)
           </button>
 
           <div className="pt-2 flex flex-col gap-2">

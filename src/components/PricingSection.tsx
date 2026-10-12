@@ -6,9 +6,10 @@ import {
   ArrowRight, 
   Zap, 
   CreditCard, 
-  Lock 
+  Lock,
+  ExternalLink
 } from 'lucide-react'
-import { PRICING_PLANS } from '../data/releases'
+import { PRICING_PLANS, WEB_APP_URL } from '../data/releases'
 
 interface PricingSectionProps {
   onOpenCheckout: () => void
@@ -28,24 +29,24 @@ export const PricingSection: React.FC<PricingSectionProps> = ({
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono text-zinc-400 bg-zinc-900 border border-zinc-800">
             <span>Transparent Licensing</span>
             <span className="text-zinc-600">/</span>
-            <span className="text-emerald-400">Zero Recurring Subscriptions</span>
+            <span className="text-emerald-400">No Subscriptions. Pay Once, Use Offline Forever.</span>
           </div>
 
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white">
-            Pay Once. Own Forever.{' '}
-            <span className="text-zinc-500">Run Offline.</span>
+            100% Free Web App.{' '}
+            <span className="text-emerald-400">₹99 Native License.</span>
           </h2>
 
           <p className="text-base sm:text-lg text-zinc-400 leading-relaxed">
-            Software utility tools shouldn't demand monthly rent. 
-            All licenses are perpetual, verifiable offline, and valid across all supported operating systems.
+            The browser web app is completely free with zero paywalls or accounts. 
+            The ₹99 one-time license unlocks standalone desktop binaries, OS right-click integration, and unlimited file batching.
           </p>
         </div>
 
         {/* Pricing Cards Grid */}
         <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
           
-          {/* Card 1: Community Free */}
+          {/* Card 1: Free Web App */}
           <div className="rounded-2xl bg-zinc-900/40 border border-zinc-800 p-8 flex flex-col justify-between hover:border-zinc-700/80 transition-all">
             <div className="space-y-6">
               <div className="flex items-center justify-between">
@@ -57,7 +58,7 @@ export const PricingSection: React.FC<PricingSectionProps> = ({
                     {PRICING_PLANS[0].tagline}
                   </p>
                 </div>
-                <span className="text-[11px] font-mono px-2.5 py-1 rounded-full bg-zinc-800 text-zinc-300 border border-zinc-700/60">
+                <span className="text-[11px] font-mono px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-medium">
                   {PRICING_PLANS[0].badge}
                 </span>
               </div>
@@ -79,7 +80,7 @@ export const PricingSection: React.FC<PricingSectionProps> = ({
               {/* Features list */}
               <div className="space-y-3 pt-4 border-t border-zinc-800/80">
                 <div className="text-xs font-mono text-zinc-400 uppercase tracking-wider">
-                  Included Capabilities:
+                  Web Entitlements (Zero Restrictions):
                 </div>
                 {PRICING_PLANS[0].features.map((feat, i) => (
                   <div key={i} className="flex items-start gap-2.5 text-sm text-zinc-300">
@@ -92,11 +93,13 @@ export const PricingSection: React.FC<PricingSectionProps> = ({
 
             <div className="pt-8">
               <a
-                href="#downloads"
-                className="w-full py-3 px-4 rounded-xl text-center text-sm font-semibold bg-zinc-800 hover:bg-zinc-700 text-white transition-colors flex items-center justify-center gap-2 cursor-pointer"
+                href={WEB_APP_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full py-3 px-4 rounded-xl text-center text-sm font-semibold bg-zinc-800 hover:bg-zinc-700 text-white transition-colors flex items-center justify-center gap-2 cursor-pointer group"
               >
                 <span>{PRICING_PLANS[0].ctaText}</span>
-                <ArrowRight className="w-4 h-4" />
+                <ExternalLink className="w-4 h-4 text-zinc-400 group-hover:text-white transition-colors" />
               </a>
             </div>
           </div>
@@ -114,7 +117,7 @@ export const PricingSection: React.FC<PricingSectionProps> = ({
                 <div>
                   <h3 className="text-xl font-bold text-white tracking-tight flex items-center gap-2">
                     <span>{PRICING_PLANS[1].name}</span>
-                    <span className="text-emerald-400 text-xs font-mono font-normal">v2.x</span>
+                    <span className="text-emerald-400 text-xs font-mono font-normal">v2.x Lifetime</span>
                   </h3>
                   <p className="text-xs text-zinc-400 mt-0.5">
                     {PRICING_PLANS[1].tagline}
@@ -140,7 +143,7 @@ export const PricingSection: React.FC<PricingSectionProps> = ({
               <div className="space-y-3 pt-4 border-t border-zinc-800">
                 <div className="text-xs font-mono text-emerald-400 uppercase tracking-wider flex items-center gap-1.5">
                   <Zap className="w-3.5 h-3.5" />
-                  <span>Pro Entitlements:</span>
+                  <span>Native Desktop Entitlements:</span>
                 </div>
                 {PRICING_PLANS[1].features.map((feat, i) => (
                   <div key={i} className="flex items-start gap-2.5 text-sm text-zinc-200">
@@ -184,7 +187,7 @@ export const PricingSection: React.FC<PricingSectionProps> = ({
             <span>Air-Gapped Offline Validation: Pro keys use Ed25519 asymmetric cryptography. Validated without internet access.</span>
           </div>
           <p className="text-xs text-zinc-500">
-            Processed securely via Stripe & Lemon Squeezy with instant digital license key delivery.
+            Secure checkout with instant digital license key generation.
           </p>
         </div>
 

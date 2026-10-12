@@ -6,9 +6,10 @@ import {
   Search, 
   FileCheck 
 } from 'lucide-react'
-import { BINARY_RELEASES, APP_VERSION } from '../data/releases'
+import { BINARY_RELEASES } from '../data/releases'
 import type { BinaryRelease, PlatformKey } from '../types'
 import { useToast } from '../context/ToastContext'
+import { useAppVersion } from '../hooks/useAppVersion'
 
 interface ChecksumsMatrixProps {
   onDownload: (release: BinaryRelease) => void
@@ -16,6 +17,7 @@ interface ChecksumsMatrixProps {
 
 export const ChecksumsMatrix: React.FC<ChecksumsMatrixProps> = ({ onDownload }) => {
   const { showToast } = useToast()
+  const { version } = useAppVersion('2.0.0')
   const [selectedPlatform, setSelectedPlatform] = useState<PlatformKey | 'all'>('all')
   const [searchQuery, setSearchQuery] = useState('')
   const [copiedHashId, setCopiedHashId] = useState<string | null>(null)
@@ -58,7 +60,7 @@ export const ChecksumsMatrix: React.FC<ChecksumsMatrixProps> = ({ onDownload }) 
           </h2>
 
           <p className="text-base sm:text-lg text-zinc-400 leading-relaxed">
-            All production builds of ZeroEgress <span className="font-mono text-zinc-200">{APP_VERSION}</span> are deterministically compiled and signed. 
+            All production builds of ZeroEgress <span className="font-mono text-zinc-200">{version}</span> are deterministically compiled and signed. 
             Verify the SHA-256 hash before running on air-gapped workstations.
           </p>
         </div>

@@ -95,7 +95,7 @@ export const LicenseModal: React.FC<LicenseModalProps> = ({
             }`}
           >
             <CreditCard className="w-3.5 h-3.5" />
-            <span>Purchase License ($29)</span>
+            <span>Purchase License (₹99)</span>
           </button>
           <button
             onClick={() => setMode('activation')}
@@ -122,22 +122,22 @@ export const LicenseModal: React.FC<LicenseModalProps> = ({
                 Purchase ZeroEgress Pro Perpetual
               </h3>
               <p className="text-xs text-zinc-400 mt-1">
-                One-time payment of $29.00 USD. Includes standalone native binaries for Windows, macOS, Linux, and Android.
+                One-time payment of ₹99 INR. Includes standalone native binaries for Windows, macOS, Linux, and Android.
               </p>
             </div>
 
             <div className="p-4 rounded-xl bg-zinc-950 border border-zinc-800/80 space-y-2 text-xs font-mono">
               <div className="flex justify-between text-zinc-300">
-                <span>ZeroEgress Pro (Personal, 3 devices)</span>
-                <span>$29.00</span>
+                <span>ZeroEgress Pro Desktop License (3 machines)</span>
+                <span>₹99</span>
               </div>
               <div className="flex justify-between text-zinc-500">
-                <span>Sales Tax / VAT</span>
-                <span>$0.00</span>
+                <span>Sales Tax / GST</span>
+                <span>₹0</span>
               </div>
               <div className="pt-2 border-t border-zinc-800 flex justify-between font-bold text-emerald-400 text-sm">
                 <span>Total Due</span>
-                <span>$29.00 USD</span>
+                <span>₹99 INR</span>
               </div>
             </div>
 
@@ -162,7 +162,7 @@ export const LicenseModal: React.FC<LicenseModalProps> = ({
                   <span>Offline Cryptographic Key Generation</span>
                 </div>
                 <p>
-                  Checkout hook integrated with Lemon Squeezy / Stripe. Your key is generated instantly and never uploaded to public clouds.
+                  Instant checkout hook. Your license key is cryptographically signed and valid offline on all your workstations.
                 </p>
               </div>
 
@@ -179,7 +179,7 @@ export const LicenseModal: React.FC<LicenseModalProps> = ({
                 ) : (
                   <>
                     <CreditCard className="w-4 h-4" />
-                    <span>Pay $29.00 (Instant Checkout)</span>
+                    <span>Pay ₹99 (Instant Checkout)</span>
                   </>
                 )}
               </button>

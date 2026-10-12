@@ -12,6 +12,7 @@ import { Footer } from './components/Footer'
 import { LicenseModal } from './components/LicenseModal'
 import { DocumentationModal } from './components/DocumentationModal'
 import { WEB_APP_URL } from './data/releases'
+import { useAppVersion } from './hooks/useAppVersion'
 import type { BinaryRelease } from './types'
 
 function PortalContent() {
@@ -19,6 +20,8 @@ function PortalContent() {
   const [isLicenseModalOpen, setIsLicenseModalOpen] = useState(false)
   const [licenseModalMode, setLicenseModalMode] = useState<'checkout' | 'activation'>('checkout')
   const [isDocsModalOpen, setIsDocsModalOpen] = useState(false)
+
+  const { version } = useAppVersion('2.0.0')
 
   const handleDownloadRelease = (release: BinaryRelease) => {
     showToast(
@@ -29,7 +32,7 @@ function PortalContent() {
 
     try {
       const blob = new Blob([
-        `ZeroEgress Local Binary Archive\nRelease: v2.0.0\nPlatform: ${release.platformName} (${release.arch})\nSHA256: ${release.sha256}\n\nThis is the standalone distribution binary placeholder for ZeroEgress.\nVisit ${WEB_APP_URL} to launch the Web PWA immediately.`
+        `ZeroEgress Local Binary Archive\nRelease: ${version}\nPlatform: ${release.platformName} (${release.arch})\nSHA256: ${release.sha256}\n\nThis is the standalone distribution binary placeholder for ZeroEgress.\nVisit ${WEB_APP_URL} to launch the Web App immediately.`
       ], { type: 'text/plain' })
       const url = URL.createObjectURL(blob)
       const a = document.createElement('a')

@@ -11,13 +11,16 @@ import {
   Sparkles, 
   ArrowRight, 
   Terminal, 
-  Activity 
+  Activity,
+  Zap
 } from 'lucide-react'
+import { BrandLogo } from './BrandLogo'
 import { detectUserOS } from '../utils/osDetection'
 import type { DetectedOS } from '../utils/osDetection'
-import { BINARY_RELEASES, APP_VERSION, WEB_APP_URL } from '../data/releases'
+import { BINARY_RELEASES, WEB_APP_URL } from '../data/releases'
 import type { BinaryRelease } from '../types'
 import { useToast } from '../context/ToastContext'
+import { useAppVersion } from '../hooks/useAppVersion'
 
 interface HeroProps {
   onSelectRelease: (release: BinaryRelease) => void
@@ -25,6 +28,7 @@ interface HeroProps {
 
 export const Hero: React.FC<HeroProps> = ({ onSelectRelease }) => {
   const { showToast } = useToast()
+  const { version } = useAppVersion('2.0.0')
   const [detectedOS] = useState<DetectedOS>(() => detectUserOS())
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
@@ -79,7 +83,7 @@ export const Hero: React.FC<HeroProps> = ({ onSelectRelease }) => {
   return (
     <section className="relative pt-32 pb-20 md:pt-40 md:pb-32 overflow-hidden">
       {/* Background radial gradients for subtle high-contrast glow */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-emerald-500/5 blur-[140px] pointer-events-none rounded-full" />
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-purple-500/10 blur-[140px] pointer-events-none rounded-full" />
       <div className="absolute top-1/3 left-1/3 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[300px] bg-sky-500/5 blur-[120px] pointer-events-none rounded-full" />
       
       {/* Subtle developer grid pattern */}
@@ -94,10 +98,10 @@ export const Hero: React.FC<HeroProps> = ({ onSelectRelease }) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="max-w-4xl mx-auto text-center space-y-7">
           
-          {/* Top Pill / Status Tag */}
+          {/* Top Pill / Status Tag with canonical BrandLogo */}
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-xs text-zinc-300 font-mono shadow-sm">
-            <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
-            <span className="text-zinc-400">ZeroEgress Engine</span>
+            <BrandLogo size={16} />
+            <span className="text-zinc-400">ZeroEgress Engine {version}</span>
             <span className="text-zinc-600">/</span>
             <span className="text-emerald-400 font-medium">100% Air-Gapped Local Architecture</span>
           </div>
@@ -110,18 +114,18 @@ export const Hero: React.FC<HeroProps> = ({ onSelectRelease }) => {
             </span>
           </h1>
 
-          {/* Subheading */}
+          {/* Subheading with ground truth clarity */}
           <p className="text-lg sm:text-xl text-zinc-400 max-w-2xl mx-auto leading-relaxed">
             Convert, merge, sanitize, and process gigabyte files with{' '}
-            <span className="text-zinc-200 font-medium">zero server uploads</span> and{' '}
-            <span className="text-zinc-200 font-medium">zero subscriptions</span>.
+            <span className="text-zinc-200 font-medium">zero server uploads</span>. 
+            The Web App is <span className="text-emerald-400 font-medium">100% Free Forever</span> with zero paywalls.
           </p>
 
           {/* Primary CTA & Dynamic OS Download Button */}
           <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3.5 max-w-lg mx-auto">
             {/* Split Download Button with OS Auto-Detection & Dropdown */}
             <div className="relative w-full sm:w-auto" ref={dropdownRef}>
-              <div className="inline-flex w-full sm:w-auto rounded-xl shadow-xl shadow-emerald-950/20 bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-medium transition-all group">
+              <div className="inline-flex w-full sm:w-auto rounded-xl shadow-xl shadow-purple-950/20 bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-medium transition-all group">
                 <button
                   type="button"
                   onClick={() => handleDownload(primaryRelease)}
@@ -149,8 +153,9 @@ export const Hero: React.FC<HeroProps> = ({ onSelectRelease }) => {
               {/* Other Platforms Dropdown Menu */}
               {isDropdownOpen && (
                 <div className="absolute left-0 sm:right-0 sm:left-auto top-full mt-2 w-72 sm:w-80 rounded-xl bg-zinc-900/95 border border-zinc-700/80 shadow-2xl shadow-black/80 backdrop-blur-xl p-2 z-50 animate-in fade-in slide-in-from-top-2 text-left">
-                  <div className="px-3 py-2 text-[11px] font-mono uppercase tracking-wider text-zinc-500 border-b border-zinc-800">
-                    All Native Releases ({APP_VERSION})
+                  <div className="px-3 py-2 text-[11px] font-mono uppercase tracking-wider text-zinc-500 border-b border-zinc-800 flex items-center justify-between">
+                    <span>All Native Releases ({version})</span>
+                    <span className="text-emerald-400 font-semibold">₹99 License</span>
                   </div>
                   <div className="py-1 max-h-72 overflow-y-auto space-y-1">
                     {BINARY_RELEASES.map((rel) => {
@@ -207,23 +212,23 @@ export const Hero: React.FC<HeroProps> = ({ onSelectRelease }) => {
               className="w-full sm:w-auto px-5 py-3.5 rounded-xl border border-zinc-800 hover:border-zinc-700 bg-zinc-900/60 hover:bg-zinc-800/80 text-zinc-200 hover:text-white text-sm sm:text-base font-medium transition-all flex items-center justify-center gap-2 group cursor-pointer"
             >
               <Sparkles className="w-4 h-4 text-zinc-400 group-hover:text-amber-400 transition-colors" />
-              <span>Use Web App Online</span>
+              <span>Use Free Web App Online</span>
               <ExternalLink className="w-3.5 h-3.5 text-zinc-500 group-hover:text-zinc-300 transition-colors" />
             </a>
           </div>
 
           {/* Quick Meta Subtext */}
-          <div className="text-xs text-zinc-500 font-mono flex items-center justify-center gap-4 pt-1">
-            <span className="flex items-center gap-1">
-              <Check className="w-3.5 h-3.5 text-emerald-400" /> Standalone ~14 MB
+          <div className="text-xs text-zinc-500 font-mono flex flex-wrap items-center justify-center gap-x-4 gap-y-1 pt-1">
+            <span className="flex items-center gap-1 text-emerald-400 font-medium">
+              <Check className="w-3.5 h-3.5" /> Web App: 100% Free Forever
             </span>
-            <span className="text-zinc-700">•</span>
+            <span className="text-zinc-700 hidden sm:inline">•</span>
             <span className="flex items-center gap-1">
-              <Check className="w-3.5 h-3.5 text-emerald-400" /> Windows, Mac, Linux, Android
+              <Zap className="w-3.5 h-3.5 text-amber-400" /> Native Pro: ₹99 Lifetime License
             </span>
-            <span className="text-zinc-700">•</span>
+            <span className="text-zinc-700 hidden sm:inline">•</span>
             <span className="flex items-center gap-1">
-              <Check className="w-3.5 h-3.5 text-emerald-400" /> Zero Sockets Opened
+              <Check className="w-3.5 h-3.5 text-emerald-400" /> Zero Cloud Uploads
             </span>
           </div>
 
@@ -235,12 +240,13 @@ export const Hero: React.FC<HeroProps> = ({ onSelectRelease }) => {
             {/* Header bar */}
             <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-3 border-b border-zinc-800/80 bg-zinc-950/60 rounded-t-xl text-xs font-mono">
               <div className="flex items-center gap-2">
-                <div className="flex items-center gap-1.5">
+                <div className="flex items-center gap-1.5 mr-1">
                   <span className="w-2.5 h-2.5 rounded-full bg-zinc-700"></span>
                   <span className="w-2.5 h-2.5 rounded-full bg-zinc-700"></span>
                   <span className="w-2.5 h-2.5 rounded-full bg-zinc-700"></span>
                 </div>
-                <span className="text-zinc-400 ml-2 font-medium">zeroegress-runtime-v2.0.0</span>
+                <BrandLogo size={16} />
+                <span className="text-zinc-400 ml-1 font-medium">zeroegress-runtime-{version}</span>
                 <span className="px-1.5 py-0.5 rounded bg-zinc-800 text-zinc-400 text-[10px]">LOCAL ONLY</span>
               </div>
 

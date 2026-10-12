@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { 
   X, 
-  BookOpen, 
   ShieldCheck 
 } from 'lucide-react'
+import { BrandLogo } from './BrandLogo'
 
 interface DocumentationModalProps {
   isOpen: boolean
@@ -33,8 +33,8 @@ export const DocumentationModal: React.FC<DocumentationModalProps> = ({
 
         {/* Modal Header */}
         <div className="flex items-center gap-2.5 pb-4 border-b border-zinc-800">
-          <div className="w-8 h-8 rounded-lg bg-zinc-800 flex items-center justify-center text-emerald-400">
-            <BookOpen className="w-4 h-4" />
+          <div className="w-8 h-8 rounded-xl bg-zinc-900 border border-zinc-700/80 flex items-center justify-center p-1">
+            <BrandLogo size={20} />
           </div>
           <div>
             <h3 className="text-lg font-bold text-white">ZeroEgress Documentation</h3>
