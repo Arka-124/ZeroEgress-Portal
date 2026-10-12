@@ -128,7 +128,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenDocs, onOpenLicenseModal }
               </li>
               <li>
                 <a 
-                  href="https://github.com/zeroegress/zeroegress" 
+                  href="https://github.com/Arka-124/ZeroEgress-Portal" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="hover:text-white transition-colors inline-flex items-center gap-1.5"
@@ -159,7 +159,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenDocs, onOpenLicenseModal }
             <span>•</span>
             <a href="#" className="hover:text-zinc-300 transition-colors">Terms of License (Apache 2.0 / Commercial)</a>
             <span>•</span>
-            <a href="https://github.com/zeroegress/zeroegress" target="_blank" rel="noopener noreferrer" className="hover:text-zinc-300 transition-colors flex items-center gap-1">
+            <a href="https://github.com/Arka-124/ZeroEgress-Portal" target="_blank" rel="noopener noreferrer" className="hover:text-zinc-300 transition-colors flex items-center gap-1">
               <GitHubIcon />
               <span>GitHub</span>
             </a>
